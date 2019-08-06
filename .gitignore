@@ -61,3 +61,5 @@ typings/
 .next
 
 /dist
+node_modules
+.idea
