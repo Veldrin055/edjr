@@ -1,0 +1,29 @@
+{
+  "name": "edjr",
+  "version": "1.0.0",
+  "description": "Journal reader for Elite: Dangerous",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "jest",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "prepare": "npm run build"
+  },
+  "author": "Daniel Morrison",
+  "license": "MIT",
+  "dependencies": {
+    "@types/jest": "^24.0.17",
+    "chokidar": "^3.0.2",
+    "tail": "^2.0.2"
+  },
+  "devDependencies": {
+    "@types/node": "^12.6.9",
+    "@types/tail": "^1.2.1",
+    "jest": "^24.8.0",
+    "ts-jest": "^24.0.2",
+    "typescript": "^3.5.3"
+  },
+  "files": [
+    "dist/**/*"
+  ]
+}
