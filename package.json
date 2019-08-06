@@ -7,7 +7,7 @@
   "keywords": ["Elite Dangerous"],
   "repository": "https://github.com/Veldrin055/edjr",
   "scripts": {
-    "test": "jest --config jestconfig.json",
+    "test": "jest --config jest.config.js",
     "build": "tsc",
     "start": "node dist/index.js",
     "format": "prettier -write \"src/**/*.ts\" \"src/**/*.js\"",

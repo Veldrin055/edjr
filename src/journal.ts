@@ -4,7 +4,7 @@ import { Tail } from 'tail'
 export default class Journal extends EventEmitter {
   private tail?: Tail = undefined
 
-  startWatching(file: string, opts?: object): void {
+  public startWatching(file: string, opts?: object): void {
     if (this.tail) {
       this.tail.unwatch()
     }
@@ -13,7 +13,7 @@ export default class Journal extends EventEmitter {
     this.tail.on('line', data => this.readJournalLine(data, false))
   }
 
-  readJournalLine (data: string, backfill = false): void {
+  public readJournalLine (data: string, backfill = false): void {
     const obj: JournalEvent = JSON.parse(data)
     this.emit(obj.event, { ...obj, timestamp: new Date(obj.timestamp) }, backfill)
   }
