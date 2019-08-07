@@ -4,7 +4,9 @@
   "description": "Journal reader for Elite: Dangerous",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "keywords": ["Elite Dangerous"],
+  "keywords": [
+    "Elite Dangerous"
+  ],
   "repository": "https://github.com/Veldrin055/edjr",
   "scripts": {
     "test": "jest --config jest.config.js",
