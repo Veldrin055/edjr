@@ -1,7 +1,7 @@
 import EventEmitter from 'events';
 import { Tail } from 'tail'
-import { readJournalDir } from './journal-files'
 import { JournalEvent } from './journal-events'
+import { readJournalDir } from './journal-files'
 
 export default class Journal extends EventEmitter {
   private tail?: Tail = undefined
