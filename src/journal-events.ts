@@ -1,19 +1,19 @@
-interface JournalEvent {
+export interface JournalEvent {
   timestamp: Date
   event: 'ClearSavedGame' | 'NewCommander' | 'LoadGame' | 'Progress' | 'Rank' | 'Docked',
 }
 
-interface ClearSavedGame extends JournalEvent {
+export interface ClearSavedGame extends JournalEvent {
   Name: string,
 }
 
-interface NewCommander extends JournalEvent {
+export interface NewCommander extends JournalEvent {
   event: 'NewCommander',
   Name: string,
   Package: string,
 }
 
-interface LoadGame extends JournalEvent {
+export interface LoadGame extends JournalEvent {
   event: 'LoadGame',
   Commander: string,
   Ship: string,
@@ -26,7 +26,7 @@ interface LoadGame extends JournalEvent {
   Loan: number,
 }
 
-interface Progress extends JournalEvent {
+export interface Progress extends JournalEvent {
   event: 'Progress',
   Combat: number,
   Trade: number,
@@ -36,7 +36,7 @@ interface Progress extends JournalEvent {
   CQC: number,
 }
 
-interface Rank extends JournalEvent {
+export interface Rank extends JournalEvent {
   event: 'Rank',
   Combat: number,
   Trade: number,
@@ -46,7 +46,7 @@ interface Rank extends JournalEvent {
   CQC: number,
 }
 
-interface Docked extends JournalEvent {
+export interface Docked extends JournalEvent {
   event: 'Docked',
   StationName: string,
   StationType: string,
@@ -60,11 +60,11 @@ interface Docked extends JournalEvent {
   Security: string,
 }
 
-interface DockingCancelled extends JournalEvent {
+export interface DockingCancelled extends JournalEvent {
   StationName: string,
 }
 
-interface DockingDenied extends JournalEvent {
+export interface DockingDenied extends JournalEvent {
   StationName: string,
   Reason: 'NoSpace' | 'TooLarge' | 'Hostile' | 'Offenses' | 'Distance' | 'ActiveFighter' | 'NoReason'
 }
