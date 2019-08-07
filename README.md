@@ -4,7 +4,7 @@ A Typescript package for scanning a CMDR's journal directory and emitting events
 ### Install
 For yarn...
 ```bash
-yard add edjr
+yarn add edjr
 ```
 
 ...or for NPM:
@@ -15,7 +15,7 @@ npm i --save edjr
 ### How to use it
 `import` or `require edjr`, create a new instance of `Journal` and then subscribe to the events that you are interested in.
 Bye default, it will read the journal files located at the user home, `'~/Saved Games/Frontier Developments/Elite Dangerous'`.
-It will begin scanning for new messages on the latest file. 
+It will begin scanning for new messages on the latest file. If you want to scan from the beginning, pass `true` as a parameter to the `scan()` function.
 
 ```javascript
 const edjr = require('edjr')
