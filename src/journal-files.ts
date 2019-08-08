@@ -1,37 +1,35 @@
 import chokidar, { FSWatcher } from 'chokidar'
 import * as fs from 'fs'
-import { homedir } from "os"
+import * as _ from 'lodash'
 import * as path from 'path'
-import Journal from "./journal"
 
-const journalDir = path.normalize(homedir() + '/Saved Games/Frontier Developments/Elite Dangerous')
+/** Scans a dir for log files, executing the callbackFn on each line. Returns the latest logfile */
+export function readJournalDir(dir: string, callbackFn: (str: string) => void): Promise<string> {
+  return new Promise((resolve, reject) => {
+    fs.readdir(dir, (err, items) => {
+      if (err) {
+        console.error(err)
+        reject(err)
+      }
 
-export function readJournalDir(journal: Journal, { dir = journalDir, backfill = false }: ReadJournalOpts) {
-  fs.readdir(dir, (err, items) => {
-    if (err) {
-      console.error(err)
-      return
-    }
-    const logFiles = items.filter(name => path.extname(name) === '.log')
-    if (!logFiles) {
-      console.error(`Unable to read any log files in ${journalDir}`)
-      return
-    }
-    if (backfill) {
+      const logFiles = items.filter(name => path.extname(name) === '.log')
+      if (_.isEmpty(logFiles)) {
+        reject(`Unable to read any log files in ${dir}`)
+      }
+
       for (const logfile of logFiles) {
         fs.readFileSync(dir + '/' + logfile, 'utf-8')
         .split('\n')
-        .forEach(line => journal.readJournalLine(line, true))
+        .forEach(line => callbackFn(line))
       }
-    }
-    watch(dir, journal)
 
-    journal.startWatching(journalDir + '/' + logFiles[logFiles.length - 1], { fromBeginning: false })
+      resolve(dir + '/' + logFiles[logFiles.length - 1])
+    })
   })
-
 }
 
-export function watch(dir: string, journal: Journal): FSWatcher {
+/** Start watching a dir for new .log files */
+export function watch(dir: string, callbackFn: (newPath: string) => void): FSWatcher {
   const watcher = chokidar.watch(dir, {
     ignoreInitial: true,
     ignored: '^|[\/\\])\../',
@@ -39,17 +37,9 @@ export function watch(dir: string, journal: Journal): FSWatcher {
   })
   watcher.on('add', newPath => {
     if (path.extname(newPath) === '.log') {
-      journal.startWatching(newPath, { fromBeginning: true })
+      callbackFn(newPath)
     }
   })
 
   return watcher
 }
-
-export interface ReadJournalOpts {
-  /** Optional path to journal directory */
-  dir?: string,
-  /** Read all journal files from the begninning. Defaults to false */
-  backfill?: boolean
-}
-

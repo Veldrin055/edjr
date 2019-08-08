@@ -1,13 +1,22 @@
+import {FSWatcher} from "chokidar"
 import EventEmitter from 'events';
+import { homedir } from "os"
+import * as path from "path"
 import { Tail } from 'tail'
 import { JournalEvent } from './journal-events'
-import { readJournalDir } from './journal-files'
+import { readJournalDir, watch } from './journal-files'
+
+const journalDir = path.normalize(homedir() + '/Saved Games/Frontier Developments/Elite Dangerous')
 
 export default class Journal extends EventEmitter {
   private tail?: Tail = undefined
+  private watcher?: FSWatcher = undefined
 
-  public scan(backfill = false): void {
-    readJournalDir(this, { backfill })
+  /** Scan a journal dir and start tailing it for new events */
+  public async scan({ fromBeginning = false, dir = journalDir }: ScanOptions) {
+    const readDir = await readJournalDir(dir,(line) => this.readJournalLine(line, fromBeginning))
+    this.watcher = watch(dir, (newPath) => this.startWatching(newPath, { fromBeginning: true }))
+    this.startWatching(readDir, { fromBeginning: false})
   }
 
   public startWatching(file: string, opts?: object): void {
@@ -31,5 +40,21 @@ export default class Journal extends EventEmitter {
       console.error(`Problem with line ${data}`, e)
     }
   }
+
+  public stop() {
+    if (this.tail) {
+      this.tail.unwatch()
+    }
+    if (this.watcher) {
+      this.watcher.close()
+    }
+  }
 }
 
+/** Extra options for scanning */
+export interface ScanOptions {
+  /** Read all journal files from the beginning. Defaults to false */
+  fromBeginning?: boolean,
+  /** Optional override path to journal directory */
+  dir?: string,
+}

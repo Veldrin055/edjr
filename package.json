@@ -25,9 +25,11 @@
   "dependencies": {
     "@types/jest": "^24.0.17",
     "chokidar": "^3.0.2",
+    "lodash": "^4.17.15",
     "tail": "^2.0.2"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.136",
     "@types/node": "^12.6.9",
     "@types/tail": "^1.2.1",
     "jest": "^24.8.0",

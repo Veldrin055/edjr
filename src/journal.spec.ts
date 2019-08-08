@@ -36,4 +36,15 @@ describe('test events', () => {
     journal.readJournalLine('{ "timestamp":"2016-06-10T14:32:03Z", "event":"NewCommander", "Name":"New Guy", "Package":"ImperialBountyHunter" }', false)
   })
 
+  it('should scan the dir', async () => {
+    const journal = new Journal();
+    const fn = jest.fn()
+    journal.on('*', fn)
+
+    await journal.scan({ backfill: true, dir: 'src/__tests__/'})
+    journal.stop()
+
+    expect(fn).toBeCalledTimes(1572)
+  })
+
 })

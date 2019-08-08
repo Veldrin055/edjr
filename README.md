@@ -15,7 +15,8 @@ npm i --save edjr
 ### How to use it
 `import` or `require edjr`, create a new instance of `Journal` and then subscribe to the events that you are interested in.
 Bye default, it will read the journal files located at the user home, `'~/Saved Games/Frontier Developments/Elite Dangerous'`.
-It will begin scanning for new messages on the latest file. If you want to scan from the beginning, pass `true` as a parameter to the `scan()` function.
+It will begin scanning for new messages on the latest file. If you want to scan from the beginning, pass `{fromBeginning: true}` 
+as a parameter to the `scan()` function.
 
 ```javascript
 const edjr = require('edjr')
@@ -48,6 +49,15 @@ entered supercruise { timestamp: 2019-08-07T00:41:49.000Z,
   SystemAddress: 1458309141194 }
 */  
 ```
+
+### Scan Options
+```typescript
+const scanOptions: ScanOptions = {
+  fromBeginning: false,
+  dir: "my/journal/dir"
+}
+```
+
 
 ## Legal Notice
 This library is not an official tool for the game Elite: Dangerous and is not affiliated with Frontier Developments. All information provided is based on publicly available information and may not be entirely accurate.
