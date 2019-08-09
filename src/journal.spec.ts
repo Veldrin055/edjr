@@ -1,4 +1,4 @@
-import Journal from './journal'
+import { Journal } from './journal'
 import { NewCommander } from './journal-events'
 
 describe('test events', () => {
@@ -36,15 +36,14 @@ describe('test events', () => {
     journal.readJournalLine('{ "timestamp":"2016-06-10T14:32:03Z", "event":"NewCommander", "Name":"New Guy", "Package":"ImperialBountyHunter" }', false)
   })
 
-  it('should scan the dir', async () => {
+  it('should scan the dir', async (done) => {
     const journal = new Journal();
     const fn = jest.fn()
     journal.on('*', fn)
 
-    await journal.scan({ backfill: true, dir: 'src/__tests__/'})
-    journal.stop()
-
+    await journal.scan({ fromBeginning: true, dir: 'src/__tests__/'})
     expect(fn).toBeCalledTimes(1572)
+    journal.stop(() => done())
   })
 
 })

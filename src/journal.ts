@@ -1,16 +1,16 @@
-import {FSWatcher} from "chokidar"
 import EventEmitter from 'events';
-import { homedir } from "os"
-import * as path from "path"
+import { homedir } from 'os'
+import * as path from 'path'
+import { Watcher } from 'sane'
 import { Tail } from 'tail'
 import { JournalEvent } from './journal-events'
 import { readJournalDir, watch } from './journal-files'
 
 const journalDir = path.normalize(homedir() + '/Saved Games/Frontier Developments/Elite Dangerous')
 
-export default class Journal extends EventEmitter {
+export class Journal extends EventEmitter {
   private tail?: Tail = undefined
-  private watcher?: FSWatcher = undefined
+  private watcher?: Watcher = undefined
 
   /** Scan a journal dir and start tailing it for new events */
   public async scan({ fromBeginning = false, dir = journalDir }: ScanOptions) {
@@ -41,12 +41,13 @@ export default class Journal extends EventEmitter {
     }
   }
 
-  public stop() {
+  public stop(done?: () => void) {
+    this.removeAllListeners()
     if (this.tail) {
       this.tail.unwatch()
     }
     if (this.watcher) {
-      this.watcher.close()
+      this.watcher.close(done)
     }
   }
 }

@@ -1,7 +1,7 @@
-import chokidar, { FSWatcher } from 'chokidar'
 import * as fs from 'fs'
 import * as _ from 'lodash'
 import * as path from 'path'
+import sane, { Watcher } from 'sane'
 
 /** Scans a dir for log files, executing the callbackFn on each line. Returns the latest logfile */
 export function readJournalDir(dir: string, callbackFn: (str: string) => void): Promise<string> {
@@ -29,11 +29,9 @@ export function readJournalDir(dir: string, callbackFn: (str: string) => void): 
 }
 
 /** Start watching a dir for new .log files */
-export function watch(dir: string, callbackFn: (newPath: string) => void): FSWatcher {
-  const watcher = chokidar.watch(dir, {
-    ignoreInitial: true,
-    ignored: '^|[\/\\])\../',
-    persistent: true,
+export function watch(dir: string, callbackFn: (newPath: string) => void): Watcher {
+  const watcher = sane(dir, {
+    glob: ['**/*.log']
   })
   watcher.on('add', newPath => {
     if (path.extname(newPath) === '.log') {

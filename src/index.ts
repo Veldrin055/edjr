@@ -1,9 +1,2 @@
-import Journal from './journal'
-import { readJournalDir, watch } from './journal-files'
-
-module.exports = {
-  Journal,
-  readJournalDir,
-  watch,
-}
-
+export { readJournalDir, watch } from './journal-files'
+export { Journal } from './journal'

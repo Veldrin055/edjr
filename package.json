@@ -24,13 +24,14 @@
   "license": "MIT",
   "dependencies": {
     "@types/jest": "^24.0.17",
-    "chokidar": "^3.0.2",
     "lodash": "^4.17.15",
+    "sane": "^4.1.0",
     "tail": "^2.0.2"
   },
   "devDependencies": {
     "@types/lodash": "^4.14.136",
     "@types/node": "^12.6.9",
+    "@types/sane": "^2.0.0",
     "@types/tail": "^1.2.1",
     "jest": "^24.8.0",
     "prettier": "^1.18.2",
