@@ -33,9 +33,9 @@ export function watch(dir: string, callbackFn: (newPath: string) => void): Watch
   const watcher = sane(dir, {
     glob: ['**/*.log']
   })
-  watcher.on('add', newPath => {
-    if (path.extname(newPath) === '.log') {
-      callbackFn(newPath)
+  watcher.on('add', (filepath, root) => {
+    if (path.extname(filepath) === '.log') {
+      callbackFn(path.normalize(`${root}/${filepath}`))
     }
   })
 

@@ -8,6 +8,10 @@ import { readJournalDir, watch } from './journal-files'
 
 const journalDir = path.normalize(homedir() + '/Saved Games/Frontier Developments/Elite Dangerous')
 
+export declare interface Journal {
+  on(eventType: string, callback: (obj: any) => void): this
+}
+
 export class Journal extends EventEmitter {
   private tail?: Tail = undefined
   private watcher?: Watcher = undefined
@@ -50,6 +54,7 @@ export class Journal extends EventEmitter {
       this.watcher.close(done)
     }
   }
+
 }
 
 /** Extra options for scanning */

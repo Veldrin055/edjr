@@ -1,5 +1,6 @@
 import { Journal } from './journal'
 import { NewCommander } from './journal-events'
+import path from 'path'
 
 describe('test events', () => {
   it('should emit an event', (done) => {
@@ -41,7 +42,7 @@ describe('test events', () => {
     const fn = jest.fn()
     journal.on('*', fn)
 
-    await journal.scan({ fromBeginning: true, dir: 'src/__tests__/'})
+    await journal.scan({ fromBeginning: true, dir: path.normalize('src/__tests__/')})
     expect(fn).toBeCalledTimes(1572)
     journal.stop(() => done())
   })
