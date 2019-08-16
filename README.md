@@ -1,6 +1,10 @@
 # Elite Dangerous Journal Reader
 A Typescript package for scanning a CMDR's journal directory and emitting events based on journal log messages.
 
+[![GitHub issues](https://img.shields.io/github/issues/Veldrin055/edjr)](https://github.com/Veldrin055/edjr/issues)
+[![GitHub license](https://img.shields.io/github/license/Veldrin055/edjr)](https://github.com/Veldrin055/edjr/blob/master/LICENSE)
+
+
 ### Install
 For yarn...
 ```bash
