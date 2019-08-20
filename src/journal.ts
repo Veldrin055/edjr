@@ -9,7 +9,12 @@ import { readJournalDir, watch } from './journal-files'
 const journalDir = path.normalize(homedir() + '/Saved Games/Frontier Developments/Elite Dangerous')
 
 export declare interface Journal {
-  on(eventType: string, callback: (obj: any) => void): this
+  /**
+   * Emitted on a journal log event. 
+   * obj: Event payload
+   * historical: true if the event is from a pre-existing file when `scan({ fromBegninning: true })` is called
+   */ 
+  on(eventType: string, callback: (obj: any, historical: boolean) => void): this
 }
 
 export class Journal extends EventEmitter {

@@ -68,3 +68,34 @@ export interface DockingDenied extends JournalEvent {
   StationName: string,
   Reason: 'NoSpace' | 'TooLarge' | 'Hostile' | 'Offenses' | 'Distance' | 'ActiveFighter' | 'NoReason'
 }
+
+export interface StarSystemEvent extends JournalEvent {
+  StarSystem: string
+}
+
+export interface RedeemVoucherEvent extends JournalEvent {
+  Type: 'bounty' | 'CombatBond' | 'settlement' | 'scannable',
+  Amount: number,
+}
+
+export interface MissionAcceptedEvent extends JournalEvent {
+  DestinationSystem: string,
+}
+
+export interface MissionCompletedEvent extends JournalEvent {
+  DestinationSystem: string,
+}
+
+export interface CommitCrimeEvent extends JournalEvent {
+  Bounty?: number,
+  Fine?: number,
+}
+
+export interface SellExplorationDataEvent extends JournalEvent {
+  BaseValue: number,
+}
+
+export interface MarketSellEvent extends JournalEvent {
+  Count: number,
+  BlackMarket?: boolean,
+}

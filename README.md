@@ -19,17 +19,21 @@ It will begin scanning for new messages on the latest file. If you want to scan 
 as a parameter to the `scan()` function.
 
 ```javascript
-const edjr = require('edjr')
+import { Journal, SupercruiseEntryEvent, JournalEvent, } from 'edjr'
 
-const journal = new edjr.Journal()
+const journal = new Journal()
 
 // Listen to a specific event
-journal.on('SupercruiseEntry', (evnt) => {
+journal.on('SupercruiseEntry', (evnt: SupercruiseEntryEvent) => {
     console.log('entered supercruise', evnt)
 })
 
 // Listen to any event
-journal.on('*', (evnt) => console.log(`${evnt.event} just happened`))
+journal.on('*', (evnt: JournalEvent, historical: boolean) => {
+  if (!historical) { // Only new events (no backfill if fromBeginning = true)
+    console.log(`${evnt.event} just happened`))
+  }
+}
 
 // Start listening
 journal.scan()
@@ -57,6 +61,9 @@ const scanOptions: ScanOptions = {
   dir: "my/journal/dir"
 }
 ```
+
+## To Do
+Add more event types.
 
 
 ## Legal Notice
