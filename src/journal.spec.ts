@@ -47,4 +47,16 @@ describe('test events', () => {
     journal.stop(() => done())
   })
 
+  it('should callback after scanning the dir', async (done) => {
+    const journal = new Journal();
+    const fn = jest.fn()
+    const callback = jest.fn()
+    journal.on('*', fn)
+
+    await journal.scan({ fromBeginning: true, dir: path.normalize('src/__tests__/')}, callback)
+    expect(fn).toBeCalledTimes(1572)
+    expect(callback).toBeCalled()
+    journal.stop(() => done())
+  })
+
 })
