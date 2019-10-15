@@ -1,6 +1,18 @@
 export interface JournalEvent {
   timestamp: Date
-  event: 'ClearSavedGame' | 'NewCommander' | 'LoadGame' | 'Progress' | 'Rank' | 'Docked',
+  event: string,
+}
+
+export enum CombatRank {
+  Harmless = 'Harmless',
+  MostlyHarmless = 'Mostly Harmless',
+  Novice = 'Novice',
+  Competent = 'Competent',
+  Expert = 'Expert',
+  Master = 'Master',
+  Dangerous = 'Dangerous',
+  Deadly = 'Deadly',
+  Elite = 'Elite',
 }
 
 export interface ClearSavedGame extends JournalEvent {
@@ -69,33 +81,45 @@ export interface DockingDenied extends JournalEvent {
   Reason: 'NoSpace' | 'TooLarge' | 'Hostile' | 'Offenses' | 'Distance' | 'ActiveFighter' | 'NoReason'
 }
 
-export interface StarSystemEvent extends JournalEvent {
-  StarSystem: string
-}
-
-export interface RedeemVoucherEvent extends JournalEvent {
+export interface RedeemVoucher extends JournalEvent {
   Type: 'bounty' | 'CombatBond' | 'settlement' | 'scannable',
   Amount: number,
 }
 
-export interface MissionAcceptedEvent extends JournalEvent {
+export interface MissionAccepted extends JournalEvent {
   DestinationSystem: string,
 }
 
-export interface MissionCompletedEvent extends JournalEvent {
+export interface MissionCompleted extends JournalEvent {
   DestinationSystem: string,
 }
 
-export interface CommitCrimeEvent extends JournalEvent {
+export interface CommitCrime extends JournalEvent {
   Bounty?: number,
   Fine?: number,
 }
 
-export interface SellExplorationDataEvent extends JournalEvent {
+export interface SellExplorationData extends JournalEvent {
   BaseValue: number,
 }
 
-export interface MarketSellEvent extends JournalEvent {
+export interface MarketSell extends JournalEvent {
   Count: number,
   BlackMarket?: boolean,
+}
+
+export interface PvPKill extends JournalEvent {
+  readonly Victim: string
+  readonly CombatRank: number
+}
+
+export interface Died extends JournalEvent {
+  readonly KillerName?: string
+  readonly KillerRank: CombatRank
+  readonly Killers?: WingKiller[]
+}
+
+export interface WingKiller {
+  readonly Name: string
+  readonly Rank: number
 }
