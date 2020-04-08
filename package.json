@@ -1,6 +1,6 @@
 {
   "name": "edjr",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Journal reader for Elite: Dangerous",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -35,7 +35,7 @@
     "@types/tail": "^1.2.1",
     "jest": "^24.8.0",
     "prettier": "^1.18.2",
-    "ts-jest": "^24.0.2",
+    "ts-jest": "^25.3.1",
     "tslint": "^5.18.0",
     "tslint-config-prettier": "^1.18.0",
     "typescript": "^3.5.3"
