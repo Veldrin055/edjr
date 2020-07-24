@@ -1,6 +1,6 @@
 {
   "name": "edjr",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "Journal reader for Elite: Dangerous",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
