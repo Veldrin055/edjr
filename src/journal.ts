@@ -1,4 +1,4 @@
-import EventEmitter from 'events';
+import { EventEmitter } from 'events';
 import { homedir } from 'os'
 import * as path from 'path'
 import { Watcher } from 'sane'
