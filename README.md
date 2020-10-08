@@ -35,9 +35,9 @@ journal.on('SupercruiseEntry', (evnt: SupercruiseEntryEvent) => {
 // Listen to any event
 journal.on('*', (evnt: JournalEvent, historical: boolean) => {
   if (!historical) { // Only new events (no backfill if fromBeginning = true)
-    console.log(`${evnt.event} just happened`))
+    console.log(`${evnt.event} just happened`)
   }
-}
+})
 
 // Start listening
 journal.scan()
