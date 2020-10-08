@@ -24,7 +24,7 @@ export class Journal extends EventEmitter {
   /** Scan a journal dir and start tailing it for new events */
   public async scan({ fromBeginning = false, dir = journalDir }: ScanOptions, onFinishedFromBeginning = ()=>{ return }) {
 
-    const watchFileOpts = { useWatchFile: true, fromBegninning: false }
+    const watchFileOpts = { useWatchFile: true, fromBeginning: false }
 
     const readDir = await readJournalDir(dir,(line) => this.readJournalLine(line, fromBeginning))
     this.watcher = watch(dir, (newPath) => this.startWatching(newPath, { ...watchFileOpts, fromBeginning: true }))
@@ -45,7 +45,7 @@ export class Journal extends EventEmitter {
     this.tail.on('line', data => this.readJournalLine(data, false))
   }
 
-  public readJournalLine (data: string, backfill = false): void {
+  public readJournalLine(data: string, backfill = false): void {
     try {
       if (data) {
         const obj: JournalEvent = JSON.parse(data)
